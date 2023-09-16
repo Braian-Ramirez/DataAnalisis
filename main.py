@@ -1,35 +1,43 @@
 import time
 import psutil
 
+# Función para contar palabras en una lista de líneas
 def contar_palabras(lista):
-    cache = []
-    contador_palabras = {}
+    cache = []  # O(1) - Operación de tiempo constante
+    contador_palabras = {}  # O(1) - Operación de tiempo constante
 
-    for linea in lista:
-        for palabra in linea.split():
-            if palabra in cache:
-                contador_palabras[palabra] += 1
+    for linea in lista:  # O(n), donde n es la cantidad de líneas en 'lista'
+        for palabra in linea.split():  # O(m), donde m es la cantidad de palabras en una línea
+            if palabra in cache:  # O(k), donde k es el tamaño de 'cache'
+                contador_palabras[palabra] += 1  # O(1) - Operación de tiempo constante
             else:
-                cache.append(palabra)
-                contador_palabras[palabra] = 1
+                cache.append(palabra)  # O(1) - Operación de tiempo constante
+                contador_palabras[palabra] = 1  # O(1) - Operación de tiempo constante
 
-    return contador_palabras
+    return contador_palabras  # O(1) - Operación de tiempo constante
 
+# Función para obtener las cinco palabras más usadas
 def palabras_mas_usadas(documento):
-    cinco_mayores = dict(sorted(documento.items(), key = lambda item: item[1], reverse = True) [:5])
-    return cinco_mayores
+    cinco_mayores = dict(sorted(documento.items(), key=lambda item: item[1], reverse=True)[:5])  # O(m log m), donde m es la cantidad de palabras únicas
+    return cinco_mayores  # O(1) - Operación de tiempo constante
 
+# Función para buscar la posición de una palabra en el documento
 def buscar_palabra(documento):
-    cache = []
-    indice = {}
-    for contador_linea, linea in enumerate(documento):
-        for palabra in linea.split():
-            if palabra in cache:
-               indice[palabra].append(contador_linea)
+    cache = []  # O(1) - Operación de tiempo constante
+    indice = {}  # O(1) - Operación de tiempo constante
+
+    for contador_linea, linea in enumerate(documento):  # O(n), donde n es la cantidad de líneas en 'documento'
+        for palabra in linea.split():  # O(m), donde m es la cantidad de palabras en una línea
+            if palabra in cache:  # O(k), donde k es el tamaño de 'cache'
+                indice[palabra].append(contador_linea)  # O(1) - Operación de tiempo constante
             else:
-                indice[palabra] = [contador_linea]
-                cache.append(palabra)
-    return indice
+                indice[palabra] = [contador_linea]  # O(1) - Operación de tiempo constante
+                cache.append(palabra)  # O(1) - Operación de tiempo constante
+
+    return indice  # O(1) - Operación de tiempo constante
+#La complejidad del algoritmo es de O (n*m) donde n es la contidad de lineas y m la contidad de palabras en una linea,
+# esta complejidad aplica para las funciones contar_palabras y buscar_palabra debido a sus bucles anidados
+# La función palabras_mas_usadas cuenta con una complejidad O(m log m) debido a la operación de ordenación.
 
 
 documento = [
